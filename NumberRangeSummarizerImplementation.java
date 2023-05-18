@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class NumberRangeSummarizerImplementation implements NumberRangeSummarizer{
@@ -12,9 +14,44 @@ public class NumberRangeSummarizerImplementation implements NumberRangeSummarize
 
 	@Override
 	public String summarizeCollection(Collection<Integer> input) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+		
+		StringBuilder stringBuilder = new StringBuilder();
+		List<Integer> listOfNumbers = new ArrayList<>(input);
+		
+		int start = listOfNumbers.get(0);
+		int end = start;
+		
+          for(int i = 1; i < listOfNumbers.size(); i++) {
+			
+			int current = listOfNumbers.get(i);
+			
+			if(current == end + 1) {
+				end = current;
+			}else {
+				
+				if(end == start) {
+					stringBuilder.append(start);
+				}
+				else {
+					stringBuilder.append(start + "-" + end);
+				}
+				
+				start = current;
+				end = current;
+				stringBuilder.append(",");
+			}
+		}
+		
+          if(end == start) {
+  			stringBuilder.append(start);
+  		}
+  		else {
+  			stringBuilder.append(start + "-" + end);
+  		}
+  		
+  		return stringBuilder.toString();
 
+		
+	
+	}
 }
